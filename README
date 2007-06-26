@@ -1,0 +1,93 @@
+timidity++
+------------------------------------------
+TiMidity++ is a software synthesizer.  It can play MIDI files by 
+converting them into PCM waveform data; give it a MIDI data along with 
+digital instrument data files, then it synthesizes them in real-time, 
+and plays.  It can not only play sounds, but also can save the generated 
+waveforms into hard disks as various audio file formats.
+
+Runtime requirements:
+  cygwin-1.5.24-2
+  arts-1.5.7-1
+  glib2-2.12.12-2
+  gtk2-x11-2.10.13-1
+  libFLAC7-1.1.2-1
+  libOggFLAC3-1.1.2-1
+  libX11_6-1.1.1-1
+  libXaw3d8-1.5E-1
+  libXm2-0.95.0-1
+  libXmu6-1.0.3-1
+  libXt6-1.0.4-1
+  libao2-0.8.6-1
+  libaudio2-1.9-1
+  libesound0-0.2.38-1
+  libncurses8-5.5-3
+  libogg0-1.1.2-1
+  libspeex1-1.1.10-1
+  libvorbis0-1.1.1-1
+  libvorbisenc2-1.1.1-1
+  tcl-8.4.15-1
+  tk-8.4.15-1
+  timidity-eawpatches  (or another patch set)
+
+Build requirements:
+(besides corresponding -devel packages)
+  cygwin-1.5.24-1
+  autoconf2.5-2.61-1
+  automake1.9-1.9.6-2
+  binutils-20060817-1
+  cygport-0.3.1-1
+  gawk-3.1.5-4
+  gcc-core-3.4.4-3
+  make-3.81-1
+  pkg-config-0.21-1
+  sed-4.1.5-2
+
+Canonical website:
+  http://timidity.sourceforge.net/
+
+Canonical download:
+  http://downloads.sourceforge.net/timidity/
+
+-------------------------------------------
+
+Build instructions:
+  unpack timidity++-2.13.2-X-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport ./timidity++-2.13.2-X.cygport all
+
+This will create:
+  /usr/src/timidity++-2.13.2-X-src.tar.bz2
+  /usr/src/timidity++-2.13.2-X.tar.bz2
+
+-------------------------------------------
+
+Files included in the binary package:
+
+  /etc/timidity.cfg
+  /usr/bin/timidity.exe
+  /usr/lib/timidity/tkmidity.tcl
+  /usr/share/doc/Cygwin/timidity++-2.13.2.README
+  /usr/share/doc/timidity++-2.13.2/AUTHORS
+  /usr/share/doc/timidity++-2.13.2/COPYING
+  /usr/share/doc/timidity++-2.13.2/ChangeLog
+  /usr/share/doc/timidity++-2.13.2/INSTALL
+  /usr/share/doc/timidity++-2.13.2/NEWS
+  /usr/share/doc/timidity++-2.13.2/README
+  /usr/share/doc/timidity++-2.13.2/TODO
+  /usr/share/man/man1/timidity.1.gz
+  /usr/share/man/man5/timidity.cfg.5.gz
+  /usr/share/timidity/timidity.cfg
+
+------------------
+
+Port Notes:
+
+----- version 2.13.2-1 -----
+Initial release for Cygwin.
+
+
+Cygwin port maintained by:
+http://cygwinports.dotsrc.org/

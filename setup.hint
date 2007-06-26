@@ -1,0 +1,8 @@
+category: Audio
+requires: cygwin arts glib2 gtk2-x11 libFLAC7 libOggFLAC3 libX11_6 libXaw3d8 libXm2 libXmu6 libXt6 libao2 libaudio2 libesound0 libncurses8 libogg0 libspeex1 libvorbis0 libvorbisenc2 tcl tk timidity-eawpatches
+sdesc: "MIDI to WAV converter"
+ldesc: "TiMidity++ is a software synthesizer.  It can play MIDI files by
+converting them into PCM waveform data; give it a MIDI data along with
+digital instrument data files, then it synthesizes them in real-time,
+and plays.  It can not only play sounds, but also can save the generated
+waveforms into hard disks as various audio file formats."
