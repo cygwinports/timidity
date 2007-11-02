@@ -1,0 +1,40 @@
+inherit tcl
+
+ORIG_PN="TiMidity++"
+
+DESCRIPTION="Cross-platform MIDI to WAV converter"
+HOMEPAGE="http://timidity.sourceforge.net/"
+SRC_URI="mirror://sourceforge/timidity/${ORIG_PN}-${PV}.tar.bz2
+         mirror://portage/media-sound/${PN}/files/timidity.cfg-r1"
+
+PATCH_URI="mirror://gentoo/${P}-exiterror.patch
+           mirror://portage/media-sound/${PN}/files/${P}-gcc4.patch
+           mirror://portage/media-sound/${PN}/files/${P}-gtk26.patch
+           mirror://portage/media-sound/${PN}/files/${P}-flac.patch
+           mirror://portage/media-sound/${PN}/files/${P}-flac113.patch
+"
+
+CYGCONF_ARGS="
+	--localstatedir=/var/lib/timidity++
+	--enable-audio=ao,arts,esd,flac,nas,oss,speex,vorbis
+	--enable-dynamic
+	--enable-interface=emacs,gtk,motif,ncurses,spectogram,tcltk,vt100,xaw,xskin
+	--enable-network
+	--enable-spline=cubic
+	--with-default-output=oss
+	--with-nas-library=/usr/lib/libaudio.dll.a
+	--with-tcl-includes=${TCL_INCLUDEDIR}
+	--with-tk-includes=${TCL_INCLUDEDIR}
+	--with-x
+"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	insinto /etc
+	newins ${S}/timidity.cfg-r1 timidity.cfg
+
+	dodir /usr/share/timidity
+	dosym ../../../etc/timidity.cfg /usr/share/timidity/timidity.cfg
+}

@@ -1,0 +1,253 @@
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x Makefile.in -x makefile.in -x configure -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/TiMidity++-2.13.2/configure.in src/TiMidity++-2.13.2/configure.in
+--- origsrc/TiMidity++-2.13.2/configure.in	2004-10-03 07:39:52.000000000 -0500
++++ src/TiMidity++-2.13.2/configure.in	2007-06-26 13:05:00.106225200 -0500
+@@ -216,37 +216,9 @@
+ #  ;;
+ 
+   *-*-cygwin*)
+-    EXTRADEFS="-D__W32__"
+-    # ??
+-    case "x${CC} " in
+-      "xbcc32 "*) 
+-#        test -n "$SHLD" || SHLD="tlink32 -Tpd"
+-        test -n "$SHLD" || SHLD="BCC32 -WD"
+-        BORLANDC=yes
+-        BORLANDC_LDFLAGS="kernel32.lib winspool.lib comdlg32.lib advapi32.lib oleaut32.lib uuid.lib odbc32.lib wsock32.lib user32.lib shell32.lib cw32mt.lib"
+-		BORLANDC_START='C0X32.OBJ'
+-        CFLAGS="$CFLAGS  -tWM -VM"
+-        EXTRADEFS="$EXTRADEFS -D_WINDOWS -DWIN32"
+-        ;;
+-      "xwcc386_w.sh "*)
+-         WATCOM_C=yes
+-         CFLAGS="$CFLAGS -br -5s -zk0 -bm -zp=16 -w=4 -D_WINDOWS -DWIN32 -DINCLUDE_WINDOWS_H"
+-         WATCOM_LDFLAGS=
+-         EXTRALIBS="$EXTRALIBS kernel32.lib winspool.lib comdlg32.lib advapi32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib user32.lib shell32.lib libcmt.lib"
+-         ;;
+-      "xcl "*)
+-         test -n "$SHLD" || SHLD="link -dll" 
+-         VCPP_LDFLAGS="-nologo -incremental:no  -nodefaultlib:libc.lib -nodefaultlib:msvcrt.lib kernel32.lib winspool.lib comdlg32.lib advapi32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib user32.lib shell32.lib libcmt.lib"
+-         CFLAGS="$CFLAGS -nologo -Zp16 -MT -W3 -GX  -Ob2"
+-         EXTRADEFS="$EXTRADEFS -DNDEBUG -D_WINDOWS -DWIN32 -DMBCS -D_MT -YX  -FD -c"
+-         VCPP=yes
+-         ;;
+-      "xgcc"*) test -n "$SHLD" || SHLD="gcc -mdll" ;;
+-      *) test -n "$SHLD" || SHLD="unknown" ;;
+-    esac
++    test -n "$SHLD" || SHLD="gcc -shared -Wl,--enable-auto-image-base"
+     so="dll"
+     CYGNUS=yes
+-    lib_user32_test=-luser32
+     ;;
+   *-*-mingw*)
+     EXTRADEFS="-D__W32__"
+@@ -474,8 +446,8 @@
+   AC_DEFINE(HAVE_UNION_SEMUN,1,Define to 1 if you use semun keyword)
+ fi
+ 
+-dnl Cygnus and Mingw memory struct optiontest
+-if test "x$CYGNUS" = xyes || test "x$MSYS" = xyes; then
++dnl Mingw memory struct optiontest
++if test "x$MSYS" = xyes; then
+ 	case "x${CC}" in
+ 	"xgcc"*) 
+ 		msnative_struct=''
+@@ -596,8 +568,8 @@
+ 	 tm_cv_needgetopt="yes")
+ AM_CONDITIONAL([NEEDGETOPT], test "x$tm_cv_needgetopt" = "xyes")
+ 
+-# Checks on cygnus and MYSYS
+-if test "x$CYGNUS" = xyes || test "x$MSYS" = xyes; then
++# Checks on MYSYS
++if test "x$MSYS" = xyes; then
+   case "$ac_cv_header_dirent_dirent_h$ac_cv_header_dirent_sys_ndir_h$ac_cv_header_dirent_sys_dir_h$ac_cv_header_dirent_ndir_h" in
+   *yes*)
+     AC_CHECK_FUNC(opendir,,
+@@ -768,7 +740,7 @@
+ dnl target-specific defaults
+ if test "x$au_enable_default" = xyes; then
+   case "$target" in
+-  *-*-linux*|*-*-freebsd*)
++  *-*-linux*|*-*-freebsd*|*-*-cygwin*)
+     au_enable_oss=yes
+     ;;
+   *-*-bsdi2.0)
+@@ -795,9 +767,6 @@
+   *-*-netbsd*)
+     au_enable_sun=yes
+     ;;
+-  *-*-cygwin*)
+-    au_enable_w32=yes
+-    ;;
+   *-*-mingw*)
+     au_enable_w32=yes
+     ;;
+@@ -942,9 +911,6 @@
+ AC_MSG_CHECKING(enable_audio=w32)
+ if test "x$au_enable_w32" = xyes; then
+   case "$target" in
+-    *-*-cygwin*)
+-     AC_MSG_RESULT(yes)
+-     ;;
+     *-*-mingw32)
+      AC_MSG_RESULT(yes)
+      ;;
+@@ -1116,7 +1082,7 @@
+ AC_MSG_CHECKING(enable_audio=portaudio)
+ if test "x$au_enable_portaudio" = xyes; then
+   AC_MSG_RESULT(yes)
+-  if test "x$CYGNUS" = xyes ||test "x$MSYS" = xyes; then
++  if test "x$MSYS" = xyes; then
+ 	SYSEXTRAS="$SYSEXTRAS portaudio_a.c w32_portaudio_dll.c"
+   	EXTRALIBS="$EXTRALIBS -lportaudio"
+   	EXTRADEFS="$EXTRADEFS -DAU_PORTAUDIO -DAU_PORTAUDIO_DLL"
+@@ -1168,10 +1134,6 @@
+       SYSEXTRAS="$SYSEXTRAS vorbis_a.c"
+       EXTRADEFS="$EXTRADEFS -DAU_VORBIS $OGG_CFLAGS $VORBIS_CFLAGS"
+       EXTRALIBS="$EXTRALIBS $VORBIS_LIBS $VORBISENC_LIBS $OGG_LIBS"
+-      if test "x$CYGNUS" = "xyes"; then
+-      EXTRADEFS="-DAU_VORBIS_DLL $EXTRADEFS"
+-	  SYSEXTRAS="$SYSEXTRAS w32g_vorbisenc_dll.c w32g_vorbis_dll.c w32g_ogg_dll.c"
+-      fi
+       if test "x$MSYS" = "xyes"; then
+       EXTRADEFS="-DAU_VORBIS_DLL $EXTRADEFS"
+ 	  SYSEXTRAS="$SYSEXTRAS w32g_vorbisenc_dll.c w32g_vorbis_dll.c w32g_ogg_dll.c"
+@@ -1188,7 +1150,7 @@
+ fi
+ 
+ dnl libFLAC - Free Lossless Audio Codec
+-if test "x$CYGNUS" = xyes || test "x$MSYS" = xyes ; then
++if test "x$MSYS" = xyes ; then
+   AC_MSG_CHECKING(enable_audio=flac)
+   if test "x$au_enable_flac" = xyes; then
+     AC_MSG_RESULT([yes, configuring flac])
+@@ -1230,7 +1192,7 @@
+ if test "x$au_enable_speex" = xyes; then
+   AC_CACHE_VAL(have_speex,
+   [AC_TRY_LINK([
+-  #include <speex.h>
++  #include <speex/speex.h>
+   #include <ogg/ogg.h>
+   ],
+   [
+@@ -1250,14 +1212,10 @@
+ dnl Win32 Gogo-no-coder
+ AC_MSG_CHECKING(enable_audio=gogo)
+ if test "x$au_enable_gogo" = xyes; then
+-  if test "x$CYGNUS" = "xyes"; then
++  if test "x$MSYS" = "xyes"; then
+     AC_MSG_RESULT(yes, configuring gogo)
+   else
+-    if test "x$MSYS" = "xyes"; then
+-    AC_MSG_RESULT(yes, configuring gogo)
+-    else
+       AC_MSG_WARN(May be gogo is not supported.  You need hack the gogo_a.c)
+-    fi
+   fi
+   have_gogo=yes
+   SYSEXTRAS="$SYSEXTRAS gogo_a.c w32_gogo.c"
+@@ -1345,17 +1303,12 @@
+ *)	    NEEDDLOPEN=no;;
+ esac
+ 
+-dnl check -fpic option for gcc
+-if test "x$GCC" = xyes; then SHCFLAGS="$SHCFLAGS -fPIC"; fi
+ case "x$enable_ump" in xyes|xdynamic) EXTRACFLAGS="$EXTRACFLAGS -DXP_UNIX $SHCFLAGS";; esac
+ 
+ dnl Which type of dynamic loader?
+ if test "$NEEDDLOPEN" = "yes"; then
+   have_dl=no
+ 
+-  WAPI_CHECK_FUNC(LoadLibrary,,[LoadLibrary(0);],have_dl=w32)
+-  test $wapi_cv_func_LoadLibrary = yes && have_dl=w32
+-
+   if test "$have_dl" = "no"; then
+     AC_CHECK_FUNC(shl_load,have_dl=hpux)
+   fi
+@@ -1376,6 +1329,10 @@
+   if test "$have_dl" = "no"; then
+     AC_CHECK_LIB(dld,dld_init,have_dl=dld;lib_dl_opt=-ldld)
+   fi
++  if test "$have_dl" = "no"; then
++    WAPI_CHECK_FUNC(LoadLibrary,,[LoadLibrary(0);],have_dl=w32)
++    test $wapi_cv_func_LoadLibrary = yes && have_dl=w32
++  fi
+ 
+   AC_MSG_CHECKING(dynamic link method)
+   case "$have_dl" in
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x Makefile.in -x makefile.in -x configure -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/TiMidity++-2.13.2/interface/emacs_c.c src/TiMidity++-2.13.2/interface/emacs_c.c
+--- origsrc/TiMidity++-2.13.2/interface/emacs_c.c	2007-06-26 13:01:01.513482200 -0500
++++ src/TiMidity++-2.13.2/interface/emacs_c.c	2007-06-26 13:01:10.694344200 -0500
+@@ -29,6 +29,7 @@
+ #include <stdarg.h>
+ #include <sys/types.h>
+ #include <sys/ioctl.h>
++#include <sys/termios.h>
+ #ifndef NO_STRING_H
+ #include <string.h>
+ #else
+@@ -519,7 +520,7 @@
+     int fd;
+ 
+     fd = fileno(stdin);
+-    if(ioctl(fd, FIONREAD, &num) < 0) /* see how many chars in buffer. */
++    if(ioctl(fd, TIOCINQ, &num) < 0) /* see how many chars in buffer. */
+     {
+ 	fprintf(outfp, "(error \"ioctl system call is failed\")\n");
+ 	ctl_refresh();
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x Makefile.in -x makefile.in -x configure -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/TiMidity++-2.13.2/interface/timidity.el src/TiMidity++-2.13.2/interface/timidity.el
+--- origsrc/TiMidity++-2.13.2/interface/timidity.el	2002-01-15 04:53:20.000000000 -0600
++++ src/TiMidity++-2.13.2/interface/timidity.el	2007-06-26 13:01:10.710011200 -0500
+@@ -28,14 +28,14 @@
+ ;;
+ ;; You write follows in ~/.emacs
+ ;; (autoload 'timidity "timidity" "TiMidity Interface" t)
+-;; (setq timidity-prog-path "/usr/local/bin/timidity")
++;; (setq timidity-prog-path "/usr/bin/timidity")
+ ;;
+ ;; Then you type:
+ ;; M-x timidity
+ 
+ ;; Configuration parameters.
+ ; Absolute path of timidity.
+-(defvar timidity-prog-path "/usr/local/bin/timidity")
++(defvar timidity-prog-path "/usr/bin/timidity")
+ 
+ ; String list for timidity program options.
+ (defvar timidity-default-options nil)
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x Makefile.in -x makefile.in -x configure -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/TiMidity++-2.13.2/interface/tk_c.c src/TiMidity++-2.13.2/interface/tk_c.c
+--- origsrc/TiMidity++-2.13.2/interface/tk_c.c	2007-06-26 13:01:01.623151200 -0500
++++ src/TiMidity++-2.13.2/interface/tk_c.c	2007-06-26 13:01:10.725678200 -0500
+@@ -46,6 +46,7 @@
+ #endif
+ #include <sys/types.h>
+ #include <sys/ioctl.h>
++#include <sys/termios.h>
+ #include <signal.h>
+ #include <sys/ipc.h>
+ #include <sys/shm.h>
+@@ -710,9 +711,9 @@
+ #else
+     int num;
+ 
+-    if(ioctl(fpip_in,FIONREAD,&num) < 0) /* see how many chars in buffer. */
++    if(ioctl(fpip_in,TIOCINQ,&num) < 0) /* see how many chars in buffer. */
+     {
+-	perror("ioctl: FIONREAD");
++	perror("ioctl: TIOCINQ");
+ 	return -1;
+     }
+     return num;
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x Makefile.in -x makefile.in -x configure -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/TiMidity++-2.13.2/timidity/speex_a.c src/TiMidity++-2.13.2/timidity/speex_a.c
+--- origsrc/TiMidity++-2.13.2/timidity/speex_a.c	2004-04-23 03:18:04.000000000 -0500
++++ src/TiMidity++-2.13.2/timidity/speex_a.c	2007-06-26 13:01:10.741345200 -0500
+@@ -33,8 +33,8 @@
+ #include <fcntl.h>
+ #endif
+ 
+-#include <speex.h>
+-#include <speex_header.h>
++#include <speex/speex.h>
++#include <speex/speex_header.h>
+ #include <ogg/ogg.h>
+ 
+ #include "timidity.h"
