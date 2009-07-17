@@ -7,39 +7,33 @@ and plays.  It can not only play sounds, but also can save the generated
 waveforms into hard disks as various audio file formats.
 
 Runtime requirements:
-  arts-1.5.7-1
-  cygwin-1.5.24-2
-  glib2-2.12.13-1
-  gtk2-x11-2.10.14-1
+  cygwin-1.7.0-51
+  libao2-0.8.8-1
+  libartsc0-1.5.10-11
+  libaudio2-1.9.2-1
+  libesd0-0.2.41-10
   libFLAC8-1.2.1-1
-  libX11_6-1.1.3-1
-  libXaw3d8-1.5E-1
-  libXm2-0.95.0-1
-  libXmu6-1.0.3-1
-  libXt6-1.0.5-1
-  libao2-0.8.8-2
-  libaudio2-1.9-1
-  libesound0-0.2.38-1
-  libncurses8-5.5-3
+  libgcc1-4.3.2-2
+  libncurses9-5.7-14
   libogg0-1.1.3-1
-  libspeex1-1.2beta2-1
-  libvorbis0-1.2.0-1
-  libvorbisenc2-1.2.0-1
-  tcl-8.4.16-2
-  tk-8.4.16-2
+  libspeex1-1.2rc1-1
+  libvorbis0-1.2.0-2
+  libvorbisenc2-1.2.0-2
+  libX11_6-1.2-10
+  tcl-8.5.6-2
+  tk-8.5.6-1
   timidity-eawpatches  (or another patch set)
 
 Build requirements:
 (besides corresponding -devel packages)
-  cygwin-1.5.24-1
-  autoconf2.5-2.61-1
-  automake1.9-1.9.6-2
-  binutils-20060817-1
-  cygport-0.3.1-1
-  gawk-3.1.5-4
-  gcc-core-3.4.4-3
-  make-3.81-1
-  pkg-config-0.21-1
+  autoconf2.5-2.63-10
+  automake1.9-1.9.6-10
+  binutils-2.19.51-1
+  cygport-0.9.7-1
+  gawk-3.1.6-2
+  gcc4-core-4.3.2-2
+  make-3.81-2
+  pkg-config-0.23b-10
   sed-4.1.5-2
 
 Canonical website:
@@ -65,30 +59,46 @@ This will create:
 
 Files included in the binary package:
 
-  /etc/timidity.cfg
+  /etc/defaults/etc/timidity.cfg
+  /etc/postinstall/timidity++.sh
+  /etc/preremove/timidity++.sh
   /usr/bin/timidity.exe
+  /usr/lib/timidity/bitmaps/back.xbm
+  /usr/lib/timidity/bitmaps/fwrd.xbm
+  /usr/lib/timidity/bitmaps/next.xbm
+  /usr/lib/timidity/bitmaps/pause.xbm
+  /usr/lib/timidity/bitmaps/play.xbm
+  /usr/lib/timidity/bitmaps/prev.xbm
+  /usr/lib/timidity/bitmaps/quit.xbm
+  /usr/lib/timidity/bitmaps/random.xbm
+  /usr/lib/timidity/bitmaps/repeat.xbm
+  /usr/lib/timidity/bitmaps/stop.xbm
+  /usr/lib/timidity/bitmaps/timidity.xbm
+  /usr/lib/timidity/browser.tcl
+  /usr/lib/timidity/misc.tcl
+  /usr/lib/timidity/tclIndex
   /usr/lib/timidity/tkmidity.tcl
-  /usr/share/doc/Cygwin/timidity++-2.13.2.README
-  /usr/share/doc/timidity++-2.13.2/AUTHORS
-  /usr/share/doc/timidity++-2.13.2/COPYING
-  /usr/share/doc/timidity++-2.13.2/ChangeLog
-  /usr/share/doc/timidity++-2.13.2/INSTALL
-  /usr/share/doc/timidity++-2.13.2/NEWS
-  /usr/share/doc/timidity++-2.13.2/README
-  /usr/share/doc/timidity++-2.13.2/TODO
+  /usr/lib/timidity/tkpanel.tcl
+  /usr/share/applications/timidity.desktop
+  /usr/share/doc/timidity++/AUTHORS
+  /usr/share/doc/timidity++/COPYING
+  /usr/share/doc/timidity++/ChangeLog
+  /usr/share/doc/timidity++/NEWS
+  /usr/share/doc/timidity++/README
+  /usr/share/doc/timidity++/README.xskin
+  /usr/share/doc/timidity++/TODO
+  /usr/share/emacs/site-lisp/timidity.el
   /usr/share/man/man1/timidity.1.gz
   /usr/share/man/man5/timidity.cfg.5.gz
+  /usr/share/pixmaps/timidity.xpm
   /usr/share/timidity/timidity.cfg
 
 ------------------
 
 Port Notes:
 
------ version 2.13.2-2 -----
-Rebuilt for new FLAC API.
-
------ version 2.13.2-1 -----
-Initial release for Cygwin.
+----- version 2.13.2-10 -----
+Initial release for Cygwin 1.7.
 
 
 Cygwin port maintained by:

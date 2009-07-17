@@ -1,0 +1,19 @@
+--- origsrc/TiMidity++-2.13.2/interface/timidity.el	2002-01-15 04:53:20.000000000 -0600
++++ src/TiMidity++-2.13.2/interface/timidity.el	2007-06-26 13:01:10.710011200 -0500
+@@ -28,14 +28,14 @@
+ ;;
+ ;; You write follows in ~/.emacs
+ ;; (autoload 'timidity "timidity" "TiMidity Interface" t)
+-;; (setq timidity-prog-path "/usr/local/bin/timidity")
++;; (setq timidity-prog-path "/usr/bin/timidity")
+ ;;
+ ;; Then you type:
+ ;; M-x timidity
+ 
+ ;; Configuration parameters.
+ ; Absolute path of timidity.
+-(defvar timidity-prog-path "/usr/local/bin/timidity")
++(defvar timidity-prog-path "/usr/bin/timidity")
+ 
+ ; String list for timidity program options.
+ (defvar timidity-default-options nil)
