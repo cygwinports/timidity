@@ -1,5 +1,5 @@
 category: Audio
-requires: libao2 libartsc0 libaudio2 libesd0 libFLAC8 libgcc1 libncurses9 libogg0 libspeex1 libvorbis0 libvorbisenc2 libX11_6 tcl tk timidity-eawpatches
+requires: libao2 libFLAC8 libgcc1 libncurses10 libogg0 libspeex1 libvorbis0 libvorbisenc2 libX11_6 tcl tk timidity-eawpatches
 sdesc: "MIDI to WAV converter"
 ldesc: "TiMidity++ is a software synthesizer.  It can play MIDI files by
 converting them into PCM waveform data; give it a MIDI data along with

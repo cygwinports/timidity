@@ -25,13 +25,12 @@ PATCH_URI="mirror://gentoo/${P}-exiterror.patch
 # other interfaces available: gtk, motif, xaw
 CYGCONF_ARGS="
 	--localstatedir=/var/lib/timidity++
-	--enable-audio=ao,arts,esd,flac,nas,oss,speex,vorbis
+	--enable-audio=ao,flac,oss,speex,vorbis
 	--disable-dynamic
 	--enable-interface=emacs,ncurses,tcltk,vt100,xskin
 	--enable-network
 	--enable-spline=cubic
 	--with-default-output=oss
-	--with-nas-library=/usr/lib/libaudio.dll.a
 	--with-tcl-includes=${TCL_INCLUDEDIR}
 	--with-tk-includes=${TCL_INCLUDEDIR}
 	--with-x
