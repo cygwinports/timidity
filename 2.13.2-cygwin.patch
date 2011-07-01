@@ -34,7 +34,7 @@
 -      "xgcc"*) test -n "$SHLD" || SHLD="gcc -mdll" ;;
 -      *) test -n "$SHLD" || SHLD="unknown" ;;
 -    esac
-+    test -n "$SHLD" || SHLD="gcc -shared -Wl,--enable-auto-image-base"
++    test -n "$SHLD" || SHLD="gcc -shared"
      so="dll"
      CYGNUS=yes
 -    lib_user32_test=-luser32
