@@ -40,8 +40,8 @@ CYGCONF_ARGS="
 
 src_compile() {
 	cd ${S}
-#	cygautoreconf
-#	lndirs
+	cygautoreconf
+	lndirs
 	cd ${B}
 	cygconf
 	cygmake
@@ -60,6 +60,6 @@ src_install() {
 
 	doicon ${S}/interface/pixmaps/timidity.xpm
 	# change to '-ig' if gtk interface is enabled
-	make_desktop_entry "timidity -ik" TiMidity timidity "AudioVideo;Audio;Midi"
+	make_desktop_entry "timidity -ia" TiMidity timidity "AudioVideo;Audio;Midi"
 }
 DOCS="doc/C/README.xskin"
