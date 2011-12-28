@@ -2,7 +2,7 @@
 
 --- origsrc/TiMidity++-2.13.2/configure.in	2004-10-03 07:39:52.000000000 -0500
 +++ src/TiMidity++-2.13.2/configure.in	2007-06-26 13:05:00.106225200 -0500
-@@ -216,37 +216,9 @@
+@@ -216,37 +216,8 @@
  #  ;;
  
    *-*-cygwin*)
@@ -34,7 +34,6 @@
 -      "xgcc"*) test -n "$SHLD" || SHLD="gcc -mdll" ;;
 -      *) test -n "$SHLD" || SHLD="unknown" ;;
 -    esac
-+    test -n "$SHLD" || SHLD="gcc -shared"
      so="dll"
      CYGNUS=yes
 -    lib_user32_test=-luser32
@@ -72,26 +71,6 @@
      au_enable_oss=yes
      ;;
    *-*-bsdi2.0)
-@@ -795,9 +767,6 @@
-   *-*-netbsd*)
-     au_enable_sun=yes
-     ;;
--  *-*-cygwin*)
--    au_enable_w32=yes
--    ;;
-   *-*-mingw*)
-     au_enable_w32=yes
-     ;;
-@@ -942,9 +911,6 @@
- AC_MSG_CHECKING(enable_audio=w32)
- if test "x$au_enable_w32" = xyes; then
-   case "$target" in
--    *-*-cygwin*)
--     AC_MSG_RESULT(yes)
--     ;;
-     *-*-mingw32)
-      AC_MSG_RESULT(yes)
-      ;;
 @@ -1116,7 +1082,7 @@
  AC_MSG_CHECKING(enable_audio=portaudio)
  if test "x$au_enable_portaudio" = xyes; then

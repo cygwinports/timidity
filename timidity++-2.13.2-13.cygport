@@ -1,0 +1,56 @@
+inherit tcl
+
+ORIG_PN="TiMidity++"
+
+DESCRIPTION="Cross-platform MIDI to WAV converter"
+HOMEPAGE="http://timidity.sourceforge.net/"
+SRC_URI="mirror://sourceforge/timidity/${ORIG_PN}-${PV}.tar.bz2"
+
+PATCH_URI="mirror://gentoo/${P}-patchset-2.tar.bz2
+           2.13.2-cygwin.patch
+           2.13.2-dynamic-interfaces.patch
+           2.13.2-emacs-mode.patch
+           2.13.2-speex-includes.patch
+           2.13.2-sysconfdir.patch
+"
+
+PKG_NAMES="${PN} ${PN}-gtk ${PN}-tcltk ${PN}-xaw"
+PKG_HINTS="setup gtk tcltk xaw"
+timidity___CONTENTS="--exclude=applications usr/bin/ usr/lib/timidity/bitmaps/ usr/share/"
+timidity___gtk_CONTENTS="usr/lib/timidity/interface_g.* usr/share/applications/"
+timidity___tcltk_CONTENTS="usr/lib/timidity/interface_k.* usr/lib/timidity/*tcl*"
+timidity___xaw_CONTENTS="usr/lib/timidity/interface_a.*"
+
+CYGCONF_ARGS="
+	--localstatedir=/var/lib/timidity++
+	--enable-audio=ao,esd,flac,nas,speex,vorbis
+	--enable-interface=emacs,ncurses,network,server,vt100
+	--enable-dynamic=gtk,tcltk,xaw
+	--enable-network
+	--enable-spectrogram
+	--enable-spline=cubic
+	--with-default-output=ao
+	--with-nas-includes=/usr/include/audio
+	--with-nas-library=/usr/lib/libaudio.dll.a
+	--with-tcl-includes=/usr/include
+	--with-tk-includes=/usr/include
+	--with-x
+"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	lndirs
+	cd ${B}
+	cygconf
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	doicon ${S}/interface/pixmaps/timidity.xpm
+	make_desktop_entry "timidity -ig" TiMidity timidity "AudioVideo;Audio;Midi"
+}
+DOCS="doc/C/README.tk doc/C/README.xaw"

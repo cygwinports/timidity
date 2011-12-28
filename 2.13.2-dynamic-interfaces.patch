@@ -1,0 +1,42 @@
+--- origsrc/TiMidity++-2.13.2/Makefile.am	2004-03-28 14:40:50.000000000 -0600
++++ src/TiMidity++-2.13.2/Makefile.am	2011-12-25 00:07:03.364738100 -0600
+@@ -25,8 +25,8 @@ SUBDIRS = \
+ 	utils \
+ 	libarc \
+ 	libunimod \
+-	interface \
+ 	timidity \
++	interface \
+ 	doc \
+ 	script \
+ 	configs
+--- origsrc/TiMidity++-2.13.2/configure.in	2011-12-24 23:11:49.194178400 -0600
++++ src/TiMidity++-2.13.2/configure.in	2011-12-25 01:36:18.787760100 -0600
+@@ -216,6 +216,7 @@ case "$target" in
+ #  ;;
+ 
+   *-*-cygwin*)
++    SHLD="echo ../timidity/libtimidity.exe.a | xargs gcc -shared"
+     so="dll"
+     CYGNUS=yes
+     ;;
+--- origsrc/TiMidity++-2.13.2/timidity/Makefile.am	2004-05-31 19:05:29.000000000 -0500
++++ src/TiMidity++-2.13.2/timidity/Makefile.am	2011-12-25 00:13:31.728951300 -0600
+@@ -250,6 +250,8 @@ timidity_LDADD = \
+ 	$(top_builddir)/utils/libutils.a \
+ 	$(W32GUI_RES)
+ 
++timidity_LDFLAGS = -Wl,--export-all-symbols,--out-implib,libtimidity.exe.a
++
+ timidity_dep = $(SYSEXTRAS:.c=.$(OBJEXT)) \
+ 	$(top_builddir)/interface/libinterface.a \
+ 	$(top_builddir)/libarc/libarc.a \
+@@ -327,7 +329,7 @@ endif
+ endif
+ 
+ $(top_builddir)/interface/libinterface.a $(W32GUI_RES):
+-	cd $(top_builddir)/interface; $(MAKE)
++	cd $(top_builddir)/interface; $(MAKE) libinterface.a
+ 
+ $(top_builddir)/libarc/libarc.a:
+ 	cd $(top_builddir)/libarc; $(MAKE)

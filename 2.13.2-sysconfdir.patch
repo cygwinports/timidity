@@ -1,0 +1,11 @@
+--- origsrc/TiMidity++-2.13.2/timidity/timidity.h	2004-05-01 22:28:05.000000000 -0500
++++ src/TiMidity++-2.13.2/timidity/timidity.h	2011-12-25 01:17:11.334129600 -0600
+@@ -41,7 +41,7 @@
+ 
+ /* You could specify a complete path, e.g. "/etc/timidity.cfg", and
+    then specify the library directory in the configuration file. */
+-/* #define CONFIG_FILE "/etc/timidity.cfg" */
++#define CONFIG_FILE "/etc/timidity.cfg"
+ #ifndef CONFIG_FILE
+ #  ifdef DEFAULT_PATH
+ #    define CONFIG_FILE DEFAULT_PATH "/timidity.cfg"
