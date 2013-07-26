@@ -35,17 +35,19 @@
    AC_CACHE_CHECK(Cygwin new mmsystem,timidity_cv_header_new_mmsystem,
      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
  #include <windows.h>
+@@ -1620,7 +1625,9 @@ if test "$NEEDDLOPEN" = "yes"; then
+   dnl needless?
+   dnl EXTRADEFS="$EXTRADEFS \$(DEF_SHLIB_DIR)"
+   if test "x$GCC" = xyes; then
+-    if test "x$timidity_cv_ccoption_rdynamic" = xyes; then
++    if test "x$CYGWIN" = xyes; then
++      timidity_LDFLAGS="-Wl,--export-all,--out-implib,libtimidity.exe.a"
++    elif test "x$timidity_cv_ccoption_rdynamic" = xyes; then
+       timidity_LDFLAGS="-rdynamic"
+     else
+       timidity_LDFLAGS="-Wl,--export-dynamic"
 --- origsrc/TiMidity++-2.14.0/timidity/Makefile.am	2008-03-29 21:31:07.000000000 -0500
 +++ src/TiMidity++-2.14.0/timidity/Makefile.am	2013-07-26 02:30:17.167630600 -0500
-@@ -295,6 +295,8 @@ timidity_LDADD = \
- 	$(top_builddir)/utils/libutils.a \
- 	$(W32GUI_RES)
- 
-+timidity_LDFLAGS = -Wl,--export-all-symbols,--out-implib,libtimidity.exe.a
-+
- timidity_dep = $(SYSEXTRAS:.c=.$(OBJEXT)) \
- 	$(top_builddir)/interface/libinterface.a \
- 	$(top_builddir)/libarc/libarc.a \
 @@ -467,7 +469,7 @@ endif
  endif
  
