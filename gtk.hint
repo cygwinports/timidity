@@ -1,9 +1,0 @@
-category: Audio
-requires: timidity++ libglib2.0_0 libgtk2.0_0
-external-source: timidity++
-sdesc: "MIDI to WAV converter (GTK+ interface)"
-ldesc: "TiMidity++ is a software synthesizer.  It can play MIDI files by
-converting them into PCM waveform data; give it a MIDI data along with
-digital instrument data files, then it synthesizes them in real-time,
-and plays.  It can not only play sounds, but also can save the generated
-waveforms into hard disks as various audio file formats."

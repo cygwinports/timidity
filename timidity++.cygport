@@ -1,0 +1,64 @@
+inherit tcl
+
+NAME="timidity++"
+VERSION=2.14.0
+RELEASE=1
+CATEGORY="Audio"
+SUMMARY="MIDI to WAV converter"
+DESCRIPTION="TiMidity++ is a software synthesizer.  It can play MIDI files by
+converting them into PCM waveform data; give it a MIDI data along with digital
+instrument data files, then it synthesizes them in real-time, and plays.  It
+can not only play sounds, but also can save the generated waveforms into hard
+disks as various audio file formats."
+HOMEPAGE="http://timidity.sourceforge.net/"
+SRC_URI="mirror://sourceforge/timidity/TiMidity++-${VERSION}.tar.xz"
+SRC_DIR="TiMidity++-${VERSION}"
+
+PATCH_URI="
+	2.14.0-cygwin.patch
+	2.13.2-sysconfdir.patch
+"
+
+PKG_NAMES="${NAME} ${NAME}-gtk ${NAME}-tcltk emacs-timidity"
+timidity___REQUIRES="timidity-freepats"
+timidity___CONTENTS="usr/bin/ usr/share/doc/ usr/share/man/ usr/share/pixmaps/"
+timidity___gtk_SUMMARY="${SUMMARY} (GTK+ GUI)"
+timidity___gtk_CONTENTS="usr/lib/timidity/if_gtk.* usr/share/applications/*-ig.*"
+timidity___tcltk_SUMMARY="${SUMMARY} (Tk GUI)"
+timidity___tcltk_CONTENTS="usr/lib/timidity/bitmaps/ usr/lib/timidity/*tcl* usr/share/applications/*-ik.*"
+timidity___gtk_SUMMARY="${SUMMARY} (GTK+ GUI)"
+timidity___gtk_CONTENTS="usr/lib/timidity/if_gtk.* usr/share/applications/*-ig.*"
+emacs_timidity_CONTENTS="usr/lib/timidity/if_emacs.* usr/share/emacs/"
+
+CPPFLAGS+=" -DFIONREAD=TIOCINQ"
+CYGCONF_ARGS="
+	--localstatedir=/var/lib/timidity++
+	--enable-audio=ao,oss,flac,speex,vorbis
+	--enable-interface=ncurses,network,server,vt100
+	--enable-dynamic=emacs,gtk,tcltk
+	--enable-network
+	--enable-spectrogram
+	--enable-spline=cubic
+	--with-tcl-includes=/usr/include
+	--with-tk-includes=/usr/include
+	wapi_cv_func_LoadLibrary=no
+"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	lndirs
+	cd ${B}
+	cygconf
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	doicon ${S}/interface/pixmaps/timidity.xpm
+	make_desktop_entry "timidity -ik" TkMidity timidity "AudioVideo;Audio;Midi"
+	make_desktop_entry "timidity -ig" TiMidity timidity "AudioVideo;Audio;Midi"
+}
+DOCS="doc/C/README.tk"
