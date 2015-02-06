@@ -5,7 +5,7 @@
  /* You could specify a complete path, e.g. "/etc/timidity.cfg", and
     then specify the library directory in the configuration file. */
 -/* #define CONFIG_FILE "/etc/timidity.cfg" */
-+#define CONFIG_FILE "/etc/timidity.cfg"
++#define CONFIG_FILE "/etc/timidity++.cfg"
  #ifndef CONFIG_FILE
  #  ifdef DEFAULT_PATH
  #    define CONFIG_FILE DEFAULT_PATH "/timidity.cfg"
