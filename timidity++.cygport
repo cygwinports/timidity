@@ -2,7 +2,7 @@ inherit tcl
 
 NAME="timidity++"
 VERSION=2.14.0
-RELEASE=2
+RELEASE=3
 CATEGORY="Audio"
 SUMMARY="MIDI to WAV converter"
 DESCRIPTION="TiMidity++ is a software synthesizer.  It can play MIDI files by
@@ -28,7 +28,7 @@ timidity___tcltk_SUMMARY="${SUMMARY} (Tk GUI)"
 timidity___tcltk_CONTENTS="usr/lib/timidity/bitmaps/ usr/lib/timidity/*tcl* usr/share/applications/*-ik.*"
 emacs_timidity_CONTENTS="usr/lib/timidity/if_emacs.* usr/share/emacs/"
 
-CPPFLAGS+=" -DFIONREAD=TIOCINQ"
+CPPFLAGS+=" -DFIONREAD=TIOCINQ -DUSE_INTERP_RESULT"
 CYGCONF_ARGS="
 	--localstatedir=/var/lib/timidity++
 	--enable-audio=ao,oss,flac,speex,vorbis
